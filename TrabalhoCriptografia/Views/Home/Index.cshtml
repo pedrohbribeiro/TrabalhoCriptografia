@@ -1,0 +1,120 @@
+﻿@model string
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <div class="containerTextos">
+        <div class="containerTextArea">
+            <div class="divLabelPadrao">Chave</div>
+            <input id="txtKey" />
+            <div id="labelTextAreaInput" class="divLabelPadrao">Texto</div>
+            <textarea id="txtTexto"></textarea>
+        </div>
+        <div class="containerBotoes">
+            <div>
+                <button onclick="criptografar()">Criptografar</button>
+            </div>
+            <div>
+                <button onclick="descriptografar()">Descriptografar</button>
+            </div>
+        </div>
+        <div class="containerTextArea">
+            <div class="divLabelPadrao">Resultado</div>
+            <textarea id="txtResultado"></textarea>
+        </div>
+    </div>
+
+<style>
+
+    body {
+        background-color: #f3f3f3;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    textarea{
+        height: 100%;
+        width: 100%;
+    }
+
+    button{
+        width: 135px;
+        border-radius: 5px;
+        margin: 5px;
+    }
+
+    #txtKey {
+        width: 100%;
+    }
+
+    .divLabelPadrao{
+        background-color: #727272;
+        color: white;
+        width: 100%;
+    }
+
+    .containerTextos{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        flex-grow: 1;
+        justify-content: center;
+        height: 320px;
+    }
+
+    .containerTextArea{
+        flex-basis: 40%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .containerBotoes {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 20%;
+    }
+
+    .containerTextos > div{
+        height: 100%;
+        width: 100%;
+    }
+
+    #labelTextAreaInput{
+        margin-top: 5px;
+    }
+
+    @@media (max-width:991px){
+        .containerTextos{
+            flex-direction: column;
+            height: 720px
+        }
+
+        .containerBotoes{
+            justify-content: center;
+        }
+    }
+</style>
+
+<script>
+
+    function criptografar() {
+        let txtTexto = document.getElementById('txtTexto').value;
+        let txtKey = document.getElementById('txtKey').value;
+        fetch(`/Home/Criptografar?texto=${txtTexto}&key=${txtKey}`)
+            .then(r => r.json())
+                .then(r => document.getElementById('txtResultado').value = r);
+    }
+
+    function descriptografar() {
+        let txtTexto = document.getElementById('txtTexto').value;
+        let txtKey = document.getElementById('txtKey').value;
+        fetch(`/Home/Descriptografar?texto=${txtTexto}&key=${txtKey}`)
+            .then(r => r.json())
+                .then(r => document.getElementById('txtResultado').value = r);
+    }
+
+</script>

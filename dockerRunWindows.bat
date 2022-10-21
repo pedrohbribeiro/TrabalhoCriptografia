@@ -1,0 +1,1 @@
+docker build -t trabalhocriptografia . && (docker stop trabalhocriptografia || true) && (docker rm trabalhocriptografia || true) && docker run -d -p 8080:80 --name trabalhocriptografia trabalhocriptografia
